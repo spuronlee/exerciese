@@ -180,7 +180,7 @@ def my_KMeans_algorithm(data, n_clusters=3):
     label_pred = []
     for item in clusterAssment:
         label_pred.append(int(item[0]))
-    sc_score_1 = silhouette_score(data, label_pred, metric='euclidean')
+    sc_score_1 = my_silhouette_score(data, label_pred, metric='euclidean')
 
     # 计算Calinski-Harabasz系数
     ch_score_1 = calinski_harabaz_score(data, label_pred)
