@@ -5,6 +5,7 @@ import sys
 from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
+from sklearn.metrics import calinski_harabaz_score
 
 def data_generation(dimension=10):
     """
@@ -112,7 +113,8 @@ def sk_KMeans_algorithm(data, n_clusters=3):
     plt.show()
     sc_score_2 = my_silhouette_score(data, label_pred, mode='euclidean')
     sc_score_3 = silhouette_score(data, label_pred, metric='euclidean')
-    return sc_score_2, sc_score_3
+    ch_score_2 = calinski_harabaz_score(data, label_pred)
+    return sc_score_2, sc_score_3, ch_score_2
 
 
 def my_KMeans_algorithm(data, n_clusters=3):
@@ -180,35 +182,34 @@ def my_KMeans_algorithm(data, n_clusters=3):
         label_pred.append(int(item[0]))
     sc_score_1 = silhouette_score(data, label_pred, metric='euclidean')
 
+    # 计算Calinski-Harabasz系数
+    ch_score_1 = calinski_harabaz_score(data, label_pred)
     print("The iteration times is : "+str(iter))
-    return sc_score_1, iter
+    return sc_score_1, ch_score_1, iter
 
 
 if __name__ == "__main__":
 
-    n_clusters = 3                     # numbers of the clusters
+    n_clusters = 8                    # numbers of the clusters
     data = data_generation()           # data generation
     visualization_origin_data(data)    # visualization
 
     # 调用sklearn自带的KMeans算法进行验证并可视化结果
-    sc_score_2, sc_score_3 = sk_KMeans_algorithm(data, n_clusters=n_clusters)
+    sc_score_2, sc_score_3, ch_score_2 = sk_KMeans_algorithm(data, n_clusters=n_clusters)
 
     # 多次实验
-    score = []
+    sc_score = []
+    ch_score = []
     iteration = []
     for _ in range(10):
-        sc_score_1, iter = my_KMeans_algorithm(data=data, n_clusters=n_clusters)
-        score.append(sc_score_1)
+        sc_score_1, ch_score_1, iter = my_KMeans_algorithm(data=data, n_clusters=n_clusters)
+        sc_score.append(sc_score_1)
+        ch_score.append(ch_score_1)
         iteration.append(iter)
     print("k = " + str(n_clusters))
     print("times " + str(np.mean(np.array(iteration))))
-    print(np.mean(np.array(score)))
+    print(np.mean(np.array(sc_score)))
     print(sc_score_2)
     print(sc_score_3)
-
-
-
-
-
-
-
+    print(np.mean(np.array(ch_score)))
+    print(ch_score_2)
