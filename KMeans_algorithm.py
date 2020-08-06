@@ -186,7 +186,7 @@ def my_KMeans_algorithm(data, n_clusters=3):
 
 if __name__ == "__main__":
 
-    n_clusters = 7                    # numbers of the clusters
+    n_clusters = 3                     # numbers of the clusters
     data = data_generation()           # data generation
     visualization_origin_data(data)    # visualization
 
