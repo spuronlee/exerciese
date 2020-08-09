@@ -42,7 +42,7 @@ def Viterbi(hmm, o_index):
 
     T = len(o_index)   # length of the observation sequence
 
-    # the size of all delta and psi is N*T
+    # the size of all delta and psi is T*N
     delta = np.zeros((T, hmm.n))
     psi = np.zeros((T, hmm.n), dtype=np.int16)
 
