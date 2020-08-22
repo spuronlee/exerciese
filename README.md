@@ -2,7 +2,7 @@
 
 ## 2. The Transcripts of MYC
 
-## 3. Expectation of $f(x) = \sin{x}$
+## 3. Expectation of f(x) = sin(x)
 
 ## 4. K-means Clustering Algorithm
 
