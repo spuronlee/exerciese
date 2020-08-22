@@ -1,15 +1,15 @@
-# Éú³ÉÊý¾Ý
+# ç”Ÿæˆæ•°æ®
 n = 50000
 alpha <- rnorm(n, mean = 5, sd = 3)
 for(i in 1:n) while(alpha[i]<0) alpha[i]<-rnorm(1, mean = 5, sd = 3)
 x <- rbeta(n, alpha, 4)
 y <- sin(x)
 
-# ÃÜ¶ÈÇúÏß
-z=density(y, na.rm=T) #na.rm=T ºöÂÔÈ±Ê¡Öµ
+# å¯†åº¦æ›²çº¿
+z=density(y, na.rm=T) #na.rm=T å¿½ç•¥ç¼ºçœå€¼
 plot(z, main = "Distribution of Sample")
 
-# ¹À¼Æy=sin(x)ÊôÓÚÄÄÖÖ·Ö²¼
+# ä¼°è®¡y=sin(x)å±žäºŽå“ªç§åˆ†å¸ƒ
 library(fitdistrplus)
 descdist(y)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
@@ -18,17 +18,17 @@ fitdist(y, "beta",method = "mme")
 fitdist(y, "beta",method = "mge")
 
 
-library("rstan")           # ¼ÓÔØrstan°ü
-data <- list(N = n, X = x) # ×¼±¸mean.stanµÄÊý¾Ý
+library("rstan")          
+data <- list(N = n, X = x) 
 
 
-# ¼ÙÉèy=sin(x)ÊôÓÚÕýÌ¬·Ö²¼
+# å‡è®¾y=sin(x)å±žäºŽæ­£æ€åˆ†å¸ƒ
 fit <- stan(file = 'norm.stan', data = data)
 print(fit)
 plot(fit)
 
 
-# ¼ÙÉèy=sin(x)ÊôÓÚ±´Ëþ·Ö²¼
+# å‡è®¾y=sin(x)å±žäºŽè´å¡”åˆ†å¸ƒ
 fit <- stan(file = 'beta.stan', data = data)
 print(fit)
 plot(fit)
